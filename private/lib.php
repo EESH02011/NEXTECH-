@@ -4,8 +4,7 @@ date_default_timezone_set('UTC');
 function config(): array {
     static $c; if ($c === null) {
         $path = getenv('NEXTECH_CONFIG') ?: __DIR__.'/config.php';
-        if (!is_file($path)) fail('Primero configura e instala NexTech.',503);
-        $c = require $path;
+        if (getenv('NEXTECH_CONFIG')) { $c=require $path; } else { require_once __DIR__.'/environment.php'; $c=environment_config(); }
     } return $c;
 }
 function db(): PDO {
@@ -45,8 +44,8 @@ function start_session(): void {
 function csrf(): void { if(!hash_equals($_SESSION['csrf']??'',$_SERVER['HTTP_X_CSRF_TOKEN']??'')||empty($_SESSION['csrf']))fail('Tu sesión cambió. Recarga la página.',403); }
 function current_user(): ?array {
     if(empty($_SESSION['uid']))return null;
-    $u=row('SELECT id,name,email,role,phone,auth_version,created_at FROM users WHERE id=?',[$_SESSION['uid']]);
-    if(!$u || $u['auth_version']!==($_SESSION['auth_version']??null)){unset($_SESSION['uid']);return null;}
+    $u=row('SELECT id,name,email,role,phone,auth_version,active,created_at FROM users WHERE id=?',[$_SESSION['uid']]);
+    if(!$u || !$u['active'] || $u['auth_version']!==($_SESSION['auth_version']??null)){unset($_SESSION['uid']);return null;}
     unset($u['auth_version']);return $u;
 }
 function require_user(bool $admin=false): array { $u=current_user();if(!$u)fail('Inicia sesión para continuar.',401);if($admin&&$u['role']!=='admin')fail('Acceso restringido.',403);return $u; }
@@ -59,7 +58,7 @@ function rate_limit(string $label,int $max=10,int $seconds=900): void {
     if(!$s->rowCount())fail('Demasiados intentos. Intenta de nuevo en unos minutos.',429);
 }
 function settings(): array {
-    $s=['store_name'=>'NexTech','currency'=>'MXN','demo_mode'=>true,'shipping_price'=>14900,'free_shipping'=>299900,'support_email'=>'','support_phone'=>'','bank_instructions'=>'','legal_name'=>'','legal_address'=>'','privacy_text'=>'','terms_text'=>'','returns_text'=>''];
+    $s=['store_name'=>'NexTech','currency'=>'MXN','demo_mode'=>true,'tax_rate_bp'=>1600,'shipping_price'=>14900,'free_shipping'=>299900,'support_email'=>'','support_phone'=>'','bank_instructions'=>'','legal_name'=>'','legal_address'=>'','privacy_text'=>'','terms_text'=>'','returns_text'=>''];
     foreach(query('SELECT * FROM settings')->fetchAll() as $r)$s[$r['setting_key']]=json_decode($r['setting_value'],true);
     return $s;
 }
@@ -73,7 +72,7 @@ function public_settings(): array {
     $s['email_enabled']=!empty($c['smtp']['username'])||($c['environment']??'')==='development';
     return $s;
 }
-function product(array $p): array { foreach(['id','price','compare_price','stock','active','featured','verified'] as $k)$p[$k]=(int)$p[$k];$p['specs']=json_decode($p['specs'],true)?:[];return $p; }
+function product(array $p): array { foreach(['id','price','compare_price','stock','active','featured','verified'] as $k)$p[$k]=(int)$p[$k];$p['specs']=array_column(query('SELECT spec_key,spec_value FROM product_specs WHERE product_id=?',[$p['id']])->fetchAll(),'spec_value','spec_key');return $p; }
 function audit(int $uid,string $action,mixed $detail): void { query('INSERT INTO audit(user_id,action,detail,created_at) VALUES(?,?,?,?)',[$uid,$action,json_encode($detail,JSON_UNESCAPED_UNICODE),now()]); }
 function order_event(string $id,string $message): void { query('INSERT INTO order_events(order_id,message,created_at) VALUES(?,?,?)',[$id,$message,now()]); }
 function order_detail(array $o): array {
@@ -94,4 +93,19 @@ function send_email(string $to,string $subject,string $body): bool {
     if(empty($c['smtp']['username']))return false;
     require_once __DIR__.'/vendor/PHPMailer/Exception.php';require_once __DIR__.'/vendor/PHPMailer/PHPMailer.php';require_once __DIR__.'/vendor/PHPMailer/SMTP.php';
     try{$m=new PHPMailer\PHPMailer\PHPMailer(true);$m->isSMTP();$m->Host=$c['smtp']['host'];$m->Port=(int)$c['smtp']['port'];$m->SMTPAuth=true;$m->Username=$c['smtp']['username'];$m->Password=$c['smtp']['password'];$m->SMTPSecure=$c['smtp']['encryption'];$m->Timeout=10;$m->CharSet='UTF-8';$m->setFrom($c['smtp']['from_email'],$c['smtp']['from_name']);$m->addAddress($to);$m->Subject=$subject;$m->Body=$body;$m->send();return true;}catch(Throwable $e){error_log('No se pudo enviar correo de NexTech.');return false;}
+}
+
+function save_specs(int $id,array $specs): void {
+    query('DELETE FROM product_specs WHERE product_id=?',[$id]);
+    foreach($specs as $key=>$value)query('INSERT INTO product_specs(product_id,spec_key,spec_value) VALUES(?,?,?)',[$id,$key,$value]);
+}
+function inventory_movement(int $pid,int $uid,?string $order,int $quantity,string $reason): void {
+    $after=(int)row('SELECT stock FROM products WHERE id=?',[$pid])['stock'];
+    query('INSERT INTO inventory_movements(product_id,user_id,order_id,quantity,before_stock,after_stock,reason,created_at) VALUES(?,?,?,?,?,?,?,?)',[$pid,$uid,$order,$quantity,$after-$quantity,$after,$reason,now()]);
+}
+function return_inventory(array $order,int $uid): void {
+    foreach(query('SELECT * FROM order_items WHERE order_id=?',[$order['id']])->fetchAll() as $p){
+        query('UPDATE products SET stock=stock+? WHERE id=?',[$p['qty'],$p['product_id']]);
+        inventory_movement((int)$p['product_id'],$uid,$order['id'],(int)$p['qty'],'Cancelación');
+    }
 }
