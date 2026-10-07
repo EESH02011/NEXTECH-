@@ -1,0 +1,12 @@
+private/config.php
+private/installed.lock
+private/storage/*
+!private/storage/.gitkeep
+public_html/uploads/*
+!public_html/uploads/.htaccess
+*.log
+
+.env
+private/.env
+private/setup.key
+
