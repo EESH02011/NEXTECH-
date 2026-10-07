@@ -1,0 +1,30 @@
+{
+  "executed_at": "2026-10-07T05:34:30.372Z",
+  "engine": "SQLite / PHP 8.4.26",
+  "passed": 23,
+  "checks": [
+    "300 productos y 20 por cada categoría",
+    "Búsqueda, filtros y orden de precios",
+    "Sesiones, CSRF y registro seguro",
+    "Direcciones y aislamiento entre clientes",
+    "Perfil y favoritos persistentes",
+    "Stock insuficiente y validación de cantidades",
+    "Checkout calcula total, reserva stock e impide doble pedido",
+    "Pedidos privados y cancelación devuelve stock una sola vez",
+    "Alta, edición y ocultación de producto con auditoría",
+    "Flujo del pedido: pago, preparación, guía y entrega",
+    "Ventas reales bloqueadas sin configuración comercial",
+    "Recuperación de contraseña con token único e invalidación de sesión",
+    "Webhooks sin configurar no aceptan pagos",
+    "REST: métodos, validación 422, rutas 404 y permisos 403",
+    "CRUD categorías y proveedores con duplicados y baja lógica",
+    "CRUD usuarios, roles e invalidación de sesiones al dar baja",
+    "REST productos: creación, edición, proveedor e integridad de categorías",
+    "Paginación, búsqueda y orden administrativos consultan la BD",
+    "Impuesto incluido, movimientos y cancelación administrativa con motivo",
+    "Dos reportes: fechas, exclusión de anuladas y separación real/demo",
+    "Integridad referencial, restricción stock y rollback completo ante fallo de movimiento",
+    "JSON inválido 400 y error interno controlado 500",
+    "Logout revoca acceso a la cuenta"
+  ]
+}

@@ -1,0 +1,8 @@
+flowchart LR
+ usuario[Cliente / Administrador] --> frontend[HTML + CSS + JavaScript]
+ frontend -->|HTTP JSON + sesión + CSRF| api[API REST /api.php/recurso]
+ api --> backend[Validaciones + RBAC + reglas]
+ backend -->|PDO + transacciones| db[(MySQL / SQLite local)]
+ backend --> pagos[Stripe / Mercado Pago]
+ pagos -->|Webhook firmado| api
+ backend --> smtp[Correo SMTP]

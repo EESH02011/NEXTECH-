@@ -1,103 +1,104 @@
-# NexTech · Tienda para Hostinger
+# NexTech - Punto de venta y tienda de tecnología
 
-Tienda en español con diseño oscuro, morado y cian, catálogo de **300 productos reales (20 por cada una de 15 categorías)** y datos persistentes. PHP 8.2 o superior, MySQL 8 / MariaDB 10.6 o superior. No requiere Node.js, Docker ni Composer en Hostinger.
+## Descripción y objetivo
+Aplicación web en español para consultar tecnología, gestionar cuentas, vender mediante carrito y controlar productos, categorías, proveedores, usuarios, inventario y pedidos. Separa interfaz, API REST, reglas del servidor y persistencia relacional. Diseño oscuro morado/cian, adaptable a escritorio, tableta y teléfono.
 
-## Qué incluye
+**Versión académica 2.0 - 6 de octubre de 2026.** Incluye 300 modelos de productos, 15 categorías iniciales, 18 tablas, 56 rutas REST, dos roles, cuatro CRUD administrativos y dos reportes con gráficas. Importes y existencias de demostración no son cotizaciones ni inventario comercial confirmado.
 
-- Portada, menú de categorías, buscador por nombre, marca, SKU y descripción; filtros, ordenación y paginación.
-- Fichas con especificaciones, imágenes locales y enlaces al fabricante.
-- Registro e inicio de sesión, perfil, contraseña, recuperación por correo, direcciones y favoritos.
-- Carrito de visitante y carrito persistente del cliente; fusión al iniciar sesión.
-- Checkout con cálculo de precios en servidor, reserva de existencias y protección contra pedidos duplicados.
-- Historial y detalle de pedidos, cancelación de pedidos pendientes por transferencia o demostración, seguimiento con guía.
-- Administración: productos, fotos, precios, inventario, pedidos, clientes, configuración, auditoría y exportación CSV.
-- Conectores de Checkout Pro de Mercado Pago y Stripe Checkout con validación de firma de notificaciones y comprobación de importe y moneda. Transferencia con confirmación manual.
-- Instalador de un solo uso, esquema MySQL y herramienta de respaldo.
+## Datos académicos por completar
+- Institución: ____________________
+- Materia: ____________________
+- Docente: ____________________
+- Grupo: ____________________
+- Integrantes y contribuciones: ____________________
+- Repositorio remoto: ____________________
+- URL de despliegue: ____________________
 
-## Instalar en Hostinger
+## Tecnologías y requisitos
+- PHP 8.2+ (probado localmente con 8.4.26), extensiones PDO, PDO MySQL o SQLite, cURL, OpenSSL, mbstring y fileinfo.
+- MySQL 8.0.16+ o MariaDB 10.6+ en el servidor; SQLite para desarrollo y pruebas locales.
+- HTML5, CSS, JavaScript nativo. PHPMailer incluido con su licencia.
+- Node.js 22+ únicamente para ejecutar pruebas; no se necesita Node, Composer ni Docker en Hostinger.
+- HTTPS, espacio para imágenes y permisos de escritura limitados en private/storage y public_html/uploads.
 
-1. Crea un sitio PHP en tu plan de hosting y activa su certificado SSL. Esta entrega necesita un plan con **PHP y bases de datos MySQL**. El producto independiente “Creador de sitios web” no ejecuta este código; en ese caso crea un sitio PHP dentro del hosting compatible.
-2. En hPanel crea una base de datos MySQL y un usuario con acceso a ella. Guarda host, nombre completo de la base, usuario y contraseña.
-3. Descomprime el paquete. En el administrador de archivos coloca el contenido de `public_html/` dentro de la carpeta pública de tu dominio. Coloca `private/` a su mismo nivel, **fuera de la carpeta pública**:
-
-   ```text
-   carpeta-del-dominio/
-   ├── private/
-   │   ├── config.php
-   │   ├── catalog.json
-   │   └── ...
-   └── public_html/
-       ├── index.html
-       ├── api.php
-       ├── install.php
-       ├── assets/
-       └── ...
-   ```
-
-4. Copia `private/config.example.php` como `private/config.php`. Cambia `base_url` por `https://tudominio.com` **sin barra final**, y rellena los datos MySQL. Mantén `environment` en `production`. El sitio está preparado para la raíz del dominio o subdominio, no para una subcarpeta.
-5. En la configuración de PHP habilita PDO MySQL, cURL, OpenSSL, mbstring y fileinfo. Permite escritura al usuario del sitio en `private/`, `private/storage/` y `public_html/uploads/`; evita permisos globales 777. Usa PHP 8.2+ y límite de subida de al menos 4 MB.
-6. Abre `https://tudominio.com/install.php`. Usa la clave del archivo `private/setup.key` y elige tu correo y contraseña de administrador. El instalador crea las tablas e importa el catálogo; no necesitas importar `database.sql` por separado.
-7. Entra por “Mi cuenta”. Se mostrará el acceso a Administración. El instalador queda bloqueado al crear `private/installed.lock`. Después de instalar, elimina `public_html/install.php` y `private/setup.key` del servidor.
-8. Verifica que `https://tudominio.com/private/config.php` no entrega ningún archivo. La carpeta `private` debe estar fuera de `public_html`; su `.htaccess` es una protección adicional.
-
-## Preparar la venta real
-
-El catálogo contiene modelos y referencias oficiales. **Los importes son ejemplos, no cotizaciones de proveedores. El paquete instala todas las existencias en cero.** La vista local de demostración utiliza 12 unidades ficticias para probar las compras y esa base de datos no se incluye en el paquete.
-
-En Administración → Productos, confirma cada variante, presentación, compatibilidad, precio final e inventario. Marca “Precio, stock y datos verificados para venta real”. Los productos sin verificar no pueden comprarse en modo real. Puedes ocultar productos o crear otros.
-
-Las fichas son un catálogo inicial, no un acuerdo de suministro. Algunos modelos son de otros mercados. La familia del modelo y las opciones de memoria, color, talla y licencia deben corresponder al SKU que realmente vendas. Los productos de software no incluyen claves o suscripciones compradas: define licencia, duración y entrega antes de activarlos. Los distintivos de Intel y algunas imágenes de familia se identifican como ilustrativos en las especificaciones. Las imágenes y marcas pertenecen a sus titulares; confirma el uso comercial autorizado con tus proveedores.
-
-En Administración → Configuración, completa razón social, domicilio, atención a clientes, tarifas de envío y tus políticas de privacidad, términos y garantías. No se han inventado datos legales del negocio. Configura los pagos y el correo. Después de probar las integraciones en sus entornos de prueba, desactiva “Mantener el modo de demostración”. No se activan cobros reales mientras la demostración está encendida.
-
-## Pagos
-
-### Mercado Pago
-
-En `private/config.php` rellena `mercadopago.access_token` y `mercadopago.webhook_secret`. Configura el webhook de **pagos** en tu integración de Mercado Pago:
-
+## Estructura
 ```text
-https://tudominio.com/api.php?action=webhook-mercadopago
+.env.example           Variables sin secretos
+public_html/           Frontend y entrada HTTP de API/instalador
+private/               Backend, esquema, catálogo, pagos y correo
+database/              schema.sql, seed.sql y guía
+scripts/               Datos demo, respaldo, exportación y migración local
+test/                  Pruebas de integración
+docs/                  API, diccionario, diagramas, trazabilidad y evidencias
 ```
+private debe estar fuera de la raíz pública. El frontend solo usa la API; no contiene credenciales de base de datos.
 
-Checkout Pro muestra los métodos disponibles en tu cuenta y país, que pueden incluir tarjeta, efectivo y otros medios. La tienda no promete que todos los medios estén aprobados para tu cuenta. Haz compras con credenciales de prueba antes de usar las de producción. No mezcles cuentas/credenciales de prueba con las de producción.
+## Instalación en Hostinger (base nueva)
+1. Descarga el ZIP, descomprímelo y crea una base MySQL y su usuario en tu alojamiento PHP. Activa HTTPS.
+2. Sube el contenido de public_html a la carpeta pública del dominio. Sube private a su lado. Si usarás scripts, database o docs, déjalos fuera de public_html.
+3. Copia .env.example como .env junto a private/public_html. Completa APP_URL (dominio HTTPS sin barra final), APP_ENV=production y DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD. No publiques .env ni lo subas a Git. Alternativamente se admite private/.env si el panel no deja escribir en la carpeta superior.
+4. Habilita las extensiones PHP indicadas. Da permisos de escritura al usuario del sitio, evitando permisos globales 777.
+5. El ZIP incluye private/setup.key. Si clonaste Git, genera la clave con `php scripts/setup-key.php`.
+6. Abre https://tu-dominio/install.php. Usa esa clave y elige tu correo y contraseña de administrador. El instalador crea esquema, roles y catálogo. No importes SQL por separado si usas el instalador.
+7. Entra por Mi cuenta. Después elimina install.php y setup.key del servidor; conserva private/installed.lock.
+8. Comprueba GET /api.php/bootstrap y /api.php/products. El servidor debe permitir PATH_INFO en PHP. Prueba crear cuenta, carrito y pedido en demostración antes de habilitar ventas.
 
-### Stripe
+Alternativa de base de datos: importar database/schema.sql y database/seed.sql en una base vacía; después abrir install.php para crear el administrador. El SQL semilla no incluye usuarios con contraseñas fijas. La aplicación se instala con stock cero y ventas de demostración.
 
-Rellena `stripe.secret_key` y `stripe.webhook_secret`. Crea el endpoint:
-
+## Ejecución académica local
 ```text
-https://tudominio.com/api.php?action=webhook-stripe
+copiar .env.example como .env
+APP_ENV=development
+APP_URL=http://127.0.0.1:8088
+DB_DRIVER=sqlite
+DB_PATH=ruta_absoluta_a_una_base_nueva.db
+php scripts/demo.php
+php -S 127.0.0.1:8088 -t public_html
 ```
+Después abre http://127.0.0.1:8088. El frontend y backend comparten servidor. scripts/demo.php crea dos usuarios (admin@nextech.test y customer@nextech.test) con contraseñas aleatorias en private/storage/demo-accounts.json, 12 unidades ficticias por producto y tres ventas de prueba. Se niega a modificar bases con usuarios. No publiques ese archivo ni uses datos demo en producción.
 
-Suscríbelo a `checkout.session.completed` y `checkout.session.async_payment_succeeded`. Habilita los métodos deseados en Stripe. El servidor consulta la sesión, comprueba estado pagado, referencia, importe y MXN antes de confirmar el pedido. Prueba con claves y medios de prueba; después utiliza las claves de producción correspondientes.
+NEXTECH_CONFIG permite seleccionar un archivo PHP de configuración para pruebas aisladas y compatibilidad local; producción utiliza .env. scripts/upgrade-sqlite.php actualiza la base local anterior conservando respaldos. No sustituye una migración MySQL de una tienda ya desplegada: antes de actualizar una instancia real hay que respaldarla y ensayar la migración.
 
-### Transferencia
+## Funciones y uso
+Cliente: registro, acceso, perfil, contraseña, recuperación, direcciones, favoritos, búsqueda por nombre/marca/SKU/descripción, filtros y orden, carrito, compra, historial y seguimiento. El enlace Laptops filtra Computadoras + laptop y devuelve 12 modelos del catálogo inicial.
 
-En la configuración de la tienda escribe banco, titular, CLABE e instrucciones. Los datos se muestran al comprador después de crear su pedido. Marca el pago como confirmado **solo después de verificarlo en tu banco**.
+Administrador: resumen, productos (incluye carga de imágenes), categorías, proveedores, usuarios/roles, ventas/pedidos, movimientos de inventario, reportes, configuración y auditoría. Las listas principales tienen búsqueda, filtros, orden y paginación. Productos, categorías, proveedores y usuarios se desactivan conservando su historial. Se protegen las categorías/proveedores con productos activos y el acceso del último administrador.
 
-No se guardan números de tarjeta. PayPal directo no está integrado. Los reembolsos y controversias de pasarelas se tramitan en el panel del proveedor y con soporte; esta versión no automatiza reembolsos, facturación CFDI, generación de guías, compras a proveedores ni entrega de licencias digitales. Las guías se capturan manualmente en administración.
+Ventas: el servidor valida stock, recalcula importes, guarda cabecera/detalle, descuenta existencias, registra movimientos y auditoría en una transacción. Los precios incluyen una tasa uniforme configurable (1600 puntos base = 16% en la demostración); se muestra base e impuesto sin sumarlo dos veces. El régimen tributario real debe configurarse según el negocio: no hay facturación fiscal ni tasas distintas por producto.
 
-Los pedidos pendientes reservan inventario hasta su resolución. No hay vencimiento automático, para evitar liberar existencias de pagos en efectivo que todavía puedan acreditarse. Revisa periódicamente los pendientes. Los pedidos externos no se cancelan desde el cliente: resuélvelos con soporte y la pasarela. Un fallo al abrir la pasarela permite reintentar desde el detalle del pedido.
+Cancelar un pedido pendiente devuelve stock una sola vez. El administrador puede anular una venta de demostración pagada/en preparación indicando motivo. Los pagos reales ya confirmados requieren gestionar su devolución con la pasarela; no se marcan como reembolsados automáticamente. No se eliminan ventas finalizadas.
 
-## Correo
+Reportes: ventas confirmadas por fechas UTC y tipo real/demo; inventario actual por categoría. Incluyen dos gráficas y descarga CSV. Las ventas canceladas se excluyen. El inventario representa existencias actuales y valor a precio de venta, no utilidad ni costo.
 
-Configura `smtp.host`, `port`, `encryption`, `username`, `password`, `from_email` y `from_name` en el archivo privado. Para Hostinger suele utilizarse el servidor SMTP asignado a tu servicio de correo; confirma los valores en hPanel. El remitente debe pertenecer a tu dominio autorizado. Sin SMTP no se enviarán recuperaciones ni avisos de pedidos. La interfaz de recuperación informa cuando el correo no está habilitado.
+## API y seguridad
+Base /api.php. Ejemplos: GET /api.php/products, POST /api.php/auth/login, PUT /api.php/admin/products/1, DELETE /api.php/admin/categories/clave, PATCH /api.php/admin/orders/folio y GET /api.php/admin/reports?start=2026-10-01&end=2026-10-06&scope=demo.
 
-## Respaldo y mantenimiento
+Consulta docs/api.md para las 56 rutas, cuerpos, respuestas, permisos y errores. GET /bootstrap proporciona el token CSRF; toda escritura requiere X-CSRF-Token salvo webhooks firmados. Sesión HttpOnly/SameSite, Secure con HTTPS, caducidad por inactividad, contraseñas con password_hash, consultas preparadas, RBAC en servidor, invalidación por auth_version y límites de intentos. Los códigos diferencian éxito, validación, conflicto, acceso y fallos internos.
 
-Usa las copias de seguridad de Hostinger para archivos y MySQL. Conserva también `public_html/uploads/` y el archivo privado de configuración en un lugar protegido. Si tu plan incluye terminal, puedes ejecutar `php scripts/backup.php`; genera una exportación SQL dentro de `private/storage/`. Nunca publiques los respaldos. Prueba una restauración antes de depender de ella.
+## Preparación comercial, pagos y correo
+Confirma modelos, variantes, precios, existencias, abastecimiento y autorización de imágenes; marca cada producto verificado. Completa contacto, identidad comercial, políticas y pagos en Configuración antes de desactivar la demostración. Los precios del catálogo son ilustrativos. Las licencias digitales requieren definir presentación, duración y entrega; las fotografías de familia pueden ser ilustrativas.
 
-Para futuras actualizaciones conserva `private/config.php`, `private/installed.lock`, `private/storage/`, `public_html/uploads/` y la base de datos. No vuelvas a sembrar el catálogo sobre productos ya editados.
+Configura MP_ACCESS_TOKEN y MP_WEBHOOK_SECRET o STRIPE_SECRET_KEY y STRIPE_WEBHOOK_SECRET en .env. Las notificaciones pueden usar /api.php/webhooks/mercadopago y /api.php/webhooks/stripe; también se mantienen las URLs antiguas ?action=webhook-mercadopago y ?action=webhook-stripe. Stripe: eventos checkout.session.completed y checkout.session.async_payment_succeeded. Ambos conectores verifican firma y consultan al proveedor antes de confirmar importe, moneda y referencia. Los medios disponibles dependen de tu cuenta del proveedor. PayPal directo no está integrado.
 
-## Validación incluida y límites
+Transferencias: configura instrucciones desde Administración y confirma solo pagos verificados. SMTP: define SMTP_HOST, SMTP_PORT, SMTP_ENCRYPTION, SMTP_USER, SMTP_PASSWORD, SMTP_FROM y SMTP_NAME. En desarrollo los mensajes se registran localmente y no se envían. No se guardan tarjetas en NexTech.
 
-La batería `test/integration.mjs` usa Node.js 22 y PHP con PDO SQLite **solo para pruebas locales** y crea una base aislada temporal. Ejecuta `node test/integration.mjs` con `PHP_BINARY` apuntando a PHP si no está en PATH. No requiere Node.js en producción.
+Pendientes reservan stock hasta su resolución; no existe caducidad automática. Guías de envío, devoluciones externas, controversias y licencias se gestionan manualmente. No incluye CFDI, cotización automática de paquetería, compras a proveedores ni reembolso automático.
 
-Se probaron 14 grupos funcionales: catálogo y categorías, búsqueda de laptops y filtros, sesiones/CSRF, permisos, direcciones, favoritos/perfil, stock, totales e idempotencia, privacidad de pedidos y cancelaciones, administración, estados de envío, bloqueo de ventas sin configuración, recuperación de contraseña y logout. Se revisó la interfaz en navegador y tamaño móvil.
+## Pruebas y evidencias
+```text
+PHP_BINARY=ruta_a_php
+node test/integration.mjs
+```
+En PowerShell usa `$env:PHP_BINARY='ruta_a_php.exe'` antes del comando Node. Las pruebas crean una base temporal aislada y usan el puerto 8089 (TEST_PORT permite cambiarlo). 23 grupos aprobados; resultados en docs/evidencias/pruebas.json. Se comprobó el guardado por interfaz, búsqueda de laptops, reportes y ancho de pantalla 390/768/escritorio. Capturas en docs/evidencias.
 
-No se ha instalado en tu cuenta de Hostinger ni se han realizado cobros reales. Las pruebas de base de datos se realizaron con SQLite; debes ejecutar el instalador y una compra de prueba sobre MySQL de Hostinger antes de abrir al público. Las integraciones externas requieren tus claves y una validación en su entorno de prueba. No sería correcto garantizar “100 %” de operación comercial antes de esos pasos.
+No se ha desplegado en tu cuenta de Hostinger ni probado pagos/SMTP reales. La verificación ejecutada de base de datos es SQLite; la prueba sobre MySQL de Hostinger permanece pendiente de acceso al servidor. No se presentan estas integraciones como certificadas en producción.
 
-## Referencias
+## Respaldo, Git y documentación
+Respalda MySQL, .env, uploads e installed.lock. scripts/backup.php exporta MySQL a private/storage; protege las copias y prueba su restauración. Nunca publiques .git, .env, claves, bases locales o credenciales demo.
 
-Cada ficha enlaza a su fabricante; el detalle completo está en `CATALOGO-FUENTES.csv` y `private/catalog.json`. Documentación utilizada: [Hostinger: bases de datos](https://www.hostinger.com/support/mysql-databases/importing-and-exporting-databases/), [Mercado Pago: webhooks](https://www.mercadopago.com.mx/developers/es/docs/checkout-pro-preferences/additional-content/notifications/webhooks), [Stripe: verificación de firmas](https://docs.stripe.com/webhooks/signature), [PHPMailer](https://github.com/PHPMailer/PHPMailer).
+Git se inició durante esta revisión, con autor explícito NexTech automation. No existía historial previo en la carpeta recibida. El historial nuevo documenta cambios reales de esta revisión; **no acredita desarrollo previo ni participación de integrantes**. El requisito de historial progresivo y contribución del equipo sigue pendiente de evidencia auténtica. No hay repositorio remoto configurado ni se ha publicado el código.
+
+Documentación: docs/api.md, docs/database.md, docs/cumplimiento.md, docs/diagrams y docs/evidencias. El PDF entregado incluye los 16 apartados solicitados, campos académicos para completar y límites verificables. Referencias de productos en CATALOGO-FUENTES.csv. La auditoría se basa en Requerimientos_Proyectos_Finales_Software.md y Lineamientos_Documentacion_Proyecto_Final_Software.pdf proporcionados por el usuario.
+
+![Panel](docs/evidencias/dashboard.png)
+![Reportes](docs/evidencias/reportes.png)

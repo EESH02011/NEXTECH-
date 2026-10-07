@@ -1,0 +1,450 @@
+[
+  {
+    "method": "GET",
+    "path": "/api.php/bootstrap",
+    "action": "bootstrap",
+    "role": "Público",
+    "input": "Sin parámetros",
+    "output": "user, csrf, settings, categories"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/products",
+    "action": "products",
+    "role": "Público",
+    "input": "q, category, brand, stock, featured, offers, sort, page, limit (query)",
+    "output": "items, total, page, limit, pages, brands"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/products/{id}",
+    "action": "product",
+    "role": "Público",
+    "input": "id entero positivo en ruta",
+    "output": "Producto con specs, stock, precio y fuente"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/auth/register",
+    "action": "register",
+    "role": "Público",
+    "input": "name (2-120), email, password (10-128), accept=true",
+    "output": "user, csrf; 201"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/auth/login",
+    "action": "login",
+    "role": "Público",
+    "input": "email, password",
+    "output": "user, csrf; cookie de sesión"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api.php/auth/session",
+    "action": "logout",
+    "role": "Cliente autenticado",
+    "input": "Sin cuerpo requerido",
+    "output": "user=null, csrf"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/auth/forgot",
+    "action": "forgot",
+    "role": "Público",
+    "input": "email",
+    "output": "message genérico; token se envía por correo"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/auth/reset",
+    "action": "reset",
+    "role": "Público",
+    "input": "token (64), password (10-128)",
+    "output": "ok=true"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api.php/profile",
+    "action": "profile",
+    "role": "Cliente autenticado",
+    "input": "name, phone",
+    "output": "user actualizado"
+  },
+  {
+    "method": "PUT",
+    "path": "/api.php/profile/password",
+    "action": "password",
+    "role": "Cliente autenticado",
+    "input": "current_password, password",
+    "output": "csrf renovado"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/cart",
+    "action": "cart",
+    "role": "Cliente autenticado",
+    "input": "GET: sin cuerpo. PUT: id en ruta y qty (1-99)",
+    "output": "GET: productos y qty. PUT: ok=true"
+  },
+  {
+    "method": "PUT",
+    "path": "/api.php/cart/items/{id}",
+    "action": "cart",
+    "role": "Cliente autenticado",
+    "input": "GET: sin cuerpo. PUT: id en ruta y qty (1-99)",
+    "output": "GET: productos y qty. PUT: ok=true"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api.php/cart/items/{id}",
+    "action": "cart-remove",
+    "role": "Cliente autenticado",
+    "input": "id del producto en ruta",
+    "output": "ok=true"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/favorites",
+    "action": "favorites",
+    "role": "Cliente autenticado",
+    "input": "Sin cuerpo",
+    "output": "Array de productos guardados"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/favorites",
+    "action": "favorite",
+    "role": "Cliente autenticado",
+    "input": "id del producto",
+    "output": "saved booleano; alterna favorito"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/addresses",
+    "action": "addresses",
+    "role": "Cliente autenticado",
+    "input": "Sin cuerpo",
+    "output": "Array de direcciones propias"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/addresses",
+    "action": "address",
+    "role": "Cliente autenticado",
+    "input": "label, recipient, phone, street, colony, city, state, postal_code (5 dígitos), notes; id para PUT",
+    "output": "ok=true"
+  },
+  {
+    "method": "PUT",
+    "path": "/api.php/addresses/{id}",
+    "action": "address",
+    "role": "Cliente autenticado",
+    "input": "label, recipient, phone, street, colony, city, state, postal_code (5 dígitos), notes; id para PUT",
+    "output": "ok=true"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api.php/addresses/{id}",
+    "action": "address-delete",
+    "role": "Cliente autenticado",
+    "input": "id en ruta, solo propietario",
+    "output": "ok=true"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/orders",
+    "action": "orders",
+    "role": "Cliente autenticado",
+    "input": "Sin cuerpo; historial personal hasta 100 pedidos",
+    "output": "Array de pedidos con items y events"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/orders",
+    "action": "checkout",
+    "role": "Cliente autenticado",
+    "input": "key (16-80), provider, accept=true, address={recipient,phone,street,colony,city,state,postal_code,notes}",
+    "output": "Pedido, folio, total, net_total, tax, tax_rate_bp, items, events; 201 (200 en reintento idéntico)"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/orders/{id}",
+    "action": "order",
+    "role": "Cliente autenticado",
+    "input": "id del pedido en ruta, solo propietario",
+    "output": "Pedido con detalle y dirección histórica"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api.php/orders/{id}/cancellation",
+    "action": "cancel-order",
+    "role": "Cliente autenticado",
+    "input": "id en ruta; pendiente de transferencia/demo",
+    "output": "ok=true"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/orders/{id}/payment",
+    "action": "retry-payment",
+    "role": "Cliente autenticado",
+    "input": "id del pedido en ruta",
+    "output": "url de pago"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/dashboard",
+    "action": "admin-dashboard",
+    "role": "Administrador",
+    "input": "Sin parámetros",
+    "output": "products, customers, orders, revenue, low_stock, settings"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/products",
+    "action": "admin-products",
+    "role": "Administrador",
+    "input": "q, category, active (0/1), sort (newest/name/name-desc/price-asc/price-desc/stock), page, limit",
+    "output": "Listado paginado de productos"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/admin/products",
+    "action": "admin-product",
+    "role": "Administrador",
+    "input": "sku,category,name,brand,description,specs(objeto),image,source_url,price,compare_price,stock,active,featured,verified,supplier_id(opcional); id en PUT",
+    "output": "id; 201 al crear, 200 al actualizar"
+  },
+  {
+    "method": "PUT",
+    "path": "/api.php/admin/products/{id}",
+    "action": "admin-product",
+    "role": "Administrador",
+    "input": "sku,category,name,brand,description,specs(objeto),image,source_url,price,compare_price,stock,active,featured,verified,supplier_id(opcional); id en PUT",
+    "output": "id; 201 al crear, 200 al actualizar"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api.php/admin/products/{id}",
+    "action": "admin-product-delete",
+    "role": "Administrador",
+    "input": "id en ruta",
+    "output": "ok=true; baja lógica"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/orders",
+    "action": "admin-orders",
+    "role": "Administrador",
+    "input": "q, status, sort(newest/oldest/total), page, limit",
+    "output": "Listado paginado con cliente, items y events"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api.php/admin/orders/{id}",
+    "action": "admin-order",
+    "role": "Administrador",
+    "input": "id en ruta; status, tracking, reason (requerido para anular demo pagada)",
+    "output": "ok=true; guarda evento y movimiento si cancela"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/customers",
+    "action": "admin-customers",
+    "role": "Administrador",
+    "input": "Sin parámetros",
+    "output": "Hasta 500 clientes con contador de pedidos; compatibilidad, usar /admin/users para administración paginada"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/audit",
+    "action": "admin-audit",
+    "role": "Administrador",
+    "input": "page, limit, sort(newest/oldest)",
+    "output": "Listado paginado de eventos y responsable"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/export",
+    "action": "admin-export",
+    "role": "Administrador",
+    "input": "Sin parámetros",
+    "output": "CSV de pedidos; excepción al formato JSON"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api.php/admin/settings",
+    "action": "admin-settings",
+    "role": "Administrador",
+    "input": "Campos editables: store_name,support_email,support_phone,legal_name,legal_address,bank_instructions,privacy_text,terms_text,returns_text,shipping_price,free_shipping,tax_rate_bp,demo_mode",
+    "output": "ok=true"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/admin/uploads",
+    "action": "upload",
+    "role": "Administrador",
+    "input": "multipart/form-data; image JPG/PNG/WebP hasta 4 MB",
+    "output": "url del archivo"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/categories",
+    "action": "admin-categories",
+    "role": "Administrador",
+    "input": "q,active (0/1),sort(newest/name/name-desc),page,limit",
+    "output": "Listado paginado; sin hashes ni secretos"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/categories/{id}",
+    "action": "admin-category",
+    "role": "Administrador",
+    "input": "id o slug en ruta",
+    "output": "Recurso individual; 404 si no existe"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/admin/categories",
+    "action": "admin-category-save",
+    "role": "Administrador",
+    "input": "name,slug (solo creación),icon,position (0-1000),active (0/1)",
+    "output": "id,ok=true; 201 al crear, 200 al actualizar"
+  },
+  {
+    "method": "PUT",
+    "path": "/api.php/admin/categories/{id}",
+    "action": "admin-category-save",
+    "role": "Administrador",
+    "input": "name,slug (solo creación),icon,position (0-1000),active (0/1)",
+    "output": "id,ok=true; 201 al crear, 200 al actualizar"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api.php/admin/categories/{id}",
+    "action": "admin-category-delete",
+    "role": "Administrador",
+    "input": "id o slug en ruta",
+    "output": "ok=true; baja lógica con protección de dependencias y último administrador"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/suppliers",
+    "action": "admin-suppliers",
+    "role": "Administrador",
+    "input": "q,active (0/1),sort(newest/name/name-desc),page,limit",
+    "output": "Listado paginado; sin hashes ni secretos"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/suppliers/{id}",
+    "action": "admin-supplier",
+    "role": "Administrador",
+    "input": "id o slug en ruta",
+    "output": "Recurso individual; 404 si no existe"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/admin/suppliers",
+    "action": "admin-supplier-save",
+    "role": "Administrador",
+    "input": "name,email,phone,active (0/1)",
+    "output": "id,ok=true; 201 al crear, 200 al actualizar"
+  },
+  {
+    "method": "PUT",
+    "path": "/api.php/admin/suppliers/{id}",
+    "action": "admin-supplier-save",
+    "role": "Administrador",
+    "input": "name,email,phone,active (0/1)",
+    "output": "id,ok=true; 201 al crear, 200 al actualizar"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api.php/admin/suppliers/{id}",
+    "action": "admin-supplier-delete",
+    "role": "Administrador",
+    "input": "id o slug en ruta",
+    "output": "ok=true; baja lógica con protección de dependencias y último administrador"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/users",
+    "action": "admin-users",
+    "role": "Administrador",
+    "input": "q,active (0/1),sort(newest/name/name-desc),page,limit",
+    "output": "Listado paginado; sin hashes ni secretos"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/users/{id}",
+    "action": "admin-user",
+    "role": "Administrador",
+    "input": "id o slug en ruta",
+    "output": "Recurso individual; 404 si no existe"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/admin/users",
+    "action": "admin-user-save",
+    "role": "Administrador",
+    "input": "name,email,phone,role (admin/customer),active (0/1),password (requerida al crear; opcional al editar)",
+    "output": "id,ok=true; 201 al crear, 200 al actualizar"
+  },
+  {
+    "method": "PUT",
+    "path": "/api.php/admin/users/{id}",
+    "action": "admin-user-save",
+    "role": "Administrador",
+    "input": "name,email,phone,role (admin/customer),active (0/1),password (requerida al crear; opcional al editar)",
+    "output": "id,ok=true; 201 al crear, 200 al actualizar"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api.php/admin/users/{id}",
+    "action": "admin-user-delete",
+    "role": "Administrador",
+    "input": "id o slug en ruta",
+    "output": "ok=true; baja lógica con protección de dependencias y último administrador"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/roles",
+    "action": "admin-roles",
+    "role": "Administrador",
+    "input": "Sin parámetros",
+    "output": "Array code,name; roles fijos del sistema"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/movements",
+    "action": "admin-movements",
+    "role": "Administrador",
+    "input": "page, limit, sort(newest/oldest)",
+    "output": "Listado paginado: producto, responsable, folio, cambio, antes/después"
+  },
+  {
+    "method": "GET",
+    "path": "/api.php/admin/reports",
+    "action": "admin-reports",
+    "role": "Administrador",
+    "input": "start,end (YYYY-MM-DD); scope real/demo",
+    "output": "sales, inventory, totals, fechas y notas; alimenta las 2 gráficas"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/webhooks/stripe",
+    "action": "webhook-stripe",
+    "role": "Proveedor con firma",
+    "input": "JSON del proveedor + Stripe-Signature",
+    "output": "Acuse tras verificar firma y pago contra Stripe"
+  },
+  {
+    "method": "POST",
+    "path": "/api.php/webhooks/mercadopago",
+    "action": "webhook-mercadopago",
+    "role": "Proveedor con firma",
+    "input": "Evento del proveedor + x-signature + x-request-id",
+    "output": "Acuse tras verificar firma y consultar Mercado Pago"
+  }
+]

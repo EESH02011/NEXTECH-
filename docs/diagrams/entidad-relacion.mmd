@@ -1,0 +1,168 @@
+erDiagram
+  addresses {
+    INTEGER id PK
+    INTEGER user_id FK
+    VARCHAR label
+    VARCHAR recipient
+    VARCHAR phone
+    VARCHAR street
+    VARCHAR colony
+    VARCHAR city
+    VARCHAR state
+    VARCHAR postal_code
+    VARCHAR notes
+  }
+  users ||--o{ addresses : "user_id"
+  audit {
+    INTEGER id PK
+    INTEGER user_id FK
+    VARCHAR action
+    TEXT detail
+    VARCHAR created_at
+  }
+  users ||--o{ audit : "user_id"
+  cart {
+    INTEGER user_id PK
+    INTEGER product_id PK
+    INTEGER qty
+  }
+  products ||--o{ cart : "product_id"
+  users ||--o{ cart : "user_id"
+  categories {
+    VARCHAR slug PK
+    VARCHAR name
+    VARCHAR icon
+    INTEGER position
+    INTEGER active
+  }
+  favorites {
+    INTEGER user_id PK
+    INTEGER product_id PK
+  }
+  products ||--o{ favorites : "product_id"
+  users ||--o{ favorites : "user_id"
+  inventory_movements {
+    INTEGER id PK
+    INTEGER product_id FK
+    INTEGER user_id FK
+    VARCHAR order_id FK
+    INTEGER quantity
+    INTEGER before_stock
+    INTEGER after_stock
+    VARCHAR reason
+    VARCHAR created_at
+  }
+  orders ||--o{ inventory_movements : "order_id"
+  users ||--o{ inventory_movements : "user_id"
+  products ||--o{ inventory_movements : "product_id"
+  order_events {
+    INTEGER id PK
+    VARCHAR order_id FK
+    VARCHAR message
+    VARCHAR created_at
+  }
+  orders ||--o{ order_events : "order_id"
+  order_items {
+    INTEGER id PK
+    VARCHAR order_id FK
+    INTEGER product_id FK
+    VARCHAR sku
+    VARCHAR name
+    INTEGER price
+    INTEGER qty
+    VARCHAR image
+  }
+  products ||--o{ order_items : "product_id"
+  orders ||--o{ order_items : "order_id"
+  orders {
+    VARCHAR id PK
+    INTEGER user_id FK
+    VARCHAR status
+    VARCHAR payment_status
+    VARCHAR provider
+    VARCHAR payment_id
+    TEXT checkout_url
+    INTEGER tax_rate_bp
+    INTEGER tax
+    INTEGER net_total
+    INTEGER subtotal
+    INTEGER shipping
+    INTEGER total
+    TEXT address
+    VARCHAR idempotency_key
+    VARCHAR tracking
+    TEXT notes
+    VARCHAR created_at
+    VARCHAR updated_at
+  }
+  users ||--o{ orders : "user_id"
+  payment_events {
+    VARCHAR event_id PK
+    VARCHAR created_at
+  }
+  product_specs {
+    INTEGER product_id PK
+    VARCHAR spec_key PK
+    VARCHAR spec_value
+  }
+  products ||--o{ product_specs : "product_id"
+  products {
+    INTEGER id PK
+    VARCHAR sku
+    VARCHAR category FK
+    VARCHAR name
+    VARCHAR brand
+    TEXT description
+    VARCHAR image
+    VARCHAR source_url
+    VARCHAR source_checked
+    INTEGER price
+    INTEGER compare_price
+    INTEGER stock
+    INTEGER active
+    INTEGER featured
+    INTEGER verified
+    INTEGER supplier_id FK
+    VARCHAR updated_at
+  }
+  suppliers ||--o{ products : "supplier_id"
+  categories ||--o{ products : "category"
+  rate_limits {
+    VARCHAR bucket PK
+    INTEGER attempts
+    INTEGER expires_at
+  }
+  reset_tokens {
+    VARCHAR token_hash PK
+    INTEGER user_id FK
+    INTEGER expires_at
+  }
+  users ||--o{ reset_tokens : "user_id"
+  roles {
+    VARCHAR code PK
+    VARCHAR name
+  }
+  settings {
+    VARCHAR setting_key PK
+    TEXT setting_value
+  }
+  suppliers {
+    INTEGER id PK
+    VARCHAR name
+    VARCHAR email
+    VARCHAR phone
+    INTEGER active
+    VARCHAR created_at
+  }
+  users {
+    INTEGER id PK
+    VARCHAR name
+    VARCHAR email
+    VARCHAR password
+    VARCHAR role FK
+    VARCHAR phone
+    INTEGER auth_version
+    INTEGER active
+    VARCHAR created_at
+  }
+  roles ||--o{ users : "role"
