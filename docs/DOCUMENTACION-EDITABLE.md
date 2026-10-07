@@ -849,7 +849,7 @@ Tabla 42. Campos de users
 
 ## 16.5 Evidencia Git y contribuciones
 
-Se adjunta el historial local disponible. La primera entrada registra la versión existente al iniciar esta revisión. No es evidencia de desarrollo progresivo anterior del equipo. El repositorio no tiene URL remota configurada; la portada permite agregarla cuando exista. No se realizaron publicaciones externas.
+Se adjunta el historial de cambios funcionales disponible; los cierres de documentación adicionales pueden consultarse en el respaldo Git incluido en el paquete. La primera entrada registra la versión existente al iniciar esta revisión. No es evidencia de desarrollo progresivo anterior del equipo. El repositorio no tiene URL remota configurada; la portada permite agregarla cuando exista. No se realizaron publicaciones externas.
 
 8e93d4a | 2026-10-06T23:46:26-06:00 | NexTech automation | fix: normaliza especificaciones y verifica formularios y datos demo
 c3a02c0 | 2026-10-06T23:31:46-06:00 | NexTech automation | feat: incorpora REST, CRUD administrativos, reportes e integridad de inventario
