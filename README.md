@@ -2,6 +2,8 @@
 
 ## Versiones y trabajo del equipo
 
+`main` conserva la tienda actual; `version-preliminar` identifica la primera versión registrada, sin alterar autores ni fechas. Consulta [la comparación de versiones](docs/VERSIONES.md), [los pasos para colaborar](CONTRIBUTING.md) y [las tareas propuestas para los seis integrantes](docs/TAREAS-EQUIPO.md). Las aportaciones nuevas se registran desde `main`, con la identidad de quien efectivamente las realiza.
+
 ## Descripción y objetivo
 Aplicación web en español para consultar tecnología, gestionar cuentas, vender mediante carrito y controlar productos, categorías, proveedores, usuarios, inventario y pedidos. Separa interfaz, API REST, reglas del servidor y persistencia relacional. Diseño oscuro morado/cian, adaptable a escritorio, tableta y teléfono.
 
@@ -106,3 +108,4 @@ Documentación: docs/api.md, docs/database.md, docs/cumplimiento.md, docs/diagra
 
 ![Panel](docs/evidencias/dashboard.png)
 ![Reportes](docs/evidencias/reportes.png)
+
