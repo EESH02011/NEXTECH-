@@ -1,18 +1,24 @@
 # NexTech - Punto de venta y tienda de tecnología
 
+## Versiones y trabajo del equipo
+
+`main` conserva la tienda actual; `version-preliminar` identifica la primera versión registrada, sin alterar autores ni fechas. Consulta [la comparación de versiones](docs/VERSIONES.md), [los pasos para colaborar](CONTRIBUTING.md) y [las tareas propuestas para los seis integrantes](docs/TAREAS-EQUIPO.md). Las aportaciones nuevas se registran desde `main`, con la identidad de quien efectivamente las realiza.
+
 ## Descripción y objetivo
 Aplicación web en español para consultar tecnología, gestionar cuentas, vender mediante carrito y controlar productos, categorías, proveedores, usuarios, inventario y pedidos. Separa interfaz, API REST, reglas del servidor y persistencia relacional. Diseño oscuro morado/cian, adaptable a escritorio, tableta y teléfono.
 
 **Versión académica 2.0 - 6 de octubre de 2026.** Incluye 300 modelos de productos, 15 categorías iniciales, 18 tablas, 56 rutas REST, dos roles, cuatro CRUD administrativos y dos reportes con gráficas. Importes y existencias de demostración no son cotizaciones ni inventario comercial confirmado.
 
-## Datos académicos por completar
-- Institución: ____________________
-- Materia: ____________________
-- Docente: ____________________
-- Grupo: ____________________
-- Integrantes y contribuciones: ____________________
-- Repositorio remoto: ____________________
-- URL de despliegue: ____________________
+## Datos académicos
+- Institución: Instituto Tecnológico Superior de Irapuato
+- Materia: Desarrollo de Apps Web
+- Docente: Francisco Hunahpu Sahagun González
+- Grupo: Ing. Informática
+- Fecha de entrega: 6 de noviembre de 2026
+- Integrantes: Soto Saavedra Erwin Emmanuel; Aguirre Sierra Juan Damián; Crisanto Vázquez Sofía; Rosales Alarcón Amairani; Gutiérrez Rocha Kevin Yahir; Rivera Alvarado Itzel Daniela.
+- Contribuciones individuales: pendientes de documentar con evidencia del equipo.
+- Repositorio del equipo: [https://github.com/EESH02011/NEXTECH-](https://github.com/EESH02011/NEXTECH-)
+- Sitio previsto: [https://mamawevo.com/](https://mamawevo.com/) (pendiente de despliegue y validación).
 
 ## Tecnologías y requisitos
 - PHP 8.2+ (probado localmente con 8.4.26), extensiones PDO, PDO MySQL o SQLite, cURL, OpenSSL, mbstring y fileinfo.
@@ -38,7 +44,7 @@ private debe estar fuera de la raíz pública. El frontend solo usa la API; no c
 2. Sube el contenido de public_html a la carpeta pública del dominio. Sube private a su lado. Si usarás scripts, database o docs, déjalos fuera de public_html.
 3. Copia .env.example como .env junto a private/public_html. Completa APP_URL (dominio HTTPS sin barra final), APP_ENV=production y DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD. No publiques .env ni lo subas a Git. Alternativamente se admite private/.env si el panel no deja escribir en la carpeta superior.
 4. Habilita las extensiones PHP indicadas. Da permisos de escritura al usuario del sitio, evitando permisos globales 777.
-5. El ZIP incluye private/setup.key. Si clonaste Git, genera la clave con `php scripts/setup-key.php`.
+5. El paquete privado para Hostinger incluye private/setup.key. Si clonaste Git o descargaste el ZIP de código para GitHub, genera la clave con `php scripts/setup-key.php`; esa clave no se publica.
 6. Abre https://tu-dominio/install.php. Usa esa clave y elige tu correo y contraseña de administrador. El instalador crea esquema, roles y catálogo. No importes SQL por separado si usas el instalador.
 7. Entra por Mi cuenta. Después elimina install.php y setup.key del servidor; conserva private/installed.lock.
 8. Comprueba GET /api.php/bootstrap y /api.php/products. El servidor debe permitir PATH_INFO en PHP. Prueba crear cuenta, carrito y pedido en demostración antes de habilitar ventas.
@@ -96,9 +102,9 @@ No se ha desplegado en tu cuenta de Hostinger ni probado pagos/SMTP reales. La v
 ## Respaldo, Git y documentación
 Respalda MySQL, .env, uploads e installed.lock. scripts/backup.php exporta MySQL a private/storage; protege las copias y prueba su restauración. Nunca publiques .git, .env, claves, bases locales o credenciales demo.
 
-Git se inició durante esta revisión, con autor explícito NexTech automation. No existía historial previo en la carpeta recibida. El historial nuevo documenta cambios reales de esta revisión; **no acredita desarrollo previo ni participación de integrantes**. El requisito de historial progresivo y contribución del equipo sigue pendiente de evidencia auténtica. No hay repositorio remoto configurado ni se ha publicado el código.
+Git se inició durante esta revisión, con autor explícito NexTech automation. No existía historial previo en la carpeta recibida. El historial nuevo documenta cambios reales de esta revisión; **no acredita desarrollo previo ni participación de integrantes**. El requisito de historial progresivo y contribución del equipo sigue pendiente de evidencia auténtica. El equipo proporcionó el repositorio https://github.com/EESH02011/NEXTECH-. Esta actualización documental no configura el remoto local ni publica cambios; el enlace no acredita por sí solo el historial de participación.
 
-Documentación: docs/api.md, docs/database.md, docs/cumplimiento.md, docs/diagrams y docs/evidencias. El PDF entregado incluye los 16 apartados solicitados, campos académicos para completar y límites verificables. Referencias de productos en CATALOGO-FUENTES.csv. La auditoría se basa en Requerimientos_Proyectos_Finales_Software.md y Lineamientos_Documentacion_Proyecto_Final_Software.pdf proporcionados por el usuario.
+Documentación: docs/api.md, docs/database.md, docs/cumplimiento.md, docs/diagrams y docs/evidencias. El PDF entregado incluye los 16 apartados solicitados, datos académicos proporcionados por el equipo y límites verificables; se incluyen el repositorio del equipo y el dominio previsto, cuyo despliegue sigue pendiente. Referencias de productos en CATALOGO-FUENTES.csv. La auditoría se basa en Requerimientos_Proyectos_Finales_Software.md y Lineamientos_Documentacion_Proyecto_Final_Software.pdf proporcionados por el usuario.
 
 ![Panel](docs/evidencias/dashboard.png)
 ![Reportes](docs/evidencias/reportes.png)

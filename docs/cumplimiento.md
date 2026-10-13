@@ -37,7 +37,7 @@ Alcance: requisitos generales y POS (proyectos 1/4); proveedores también cubre 
 | 31 | Variables .env | Cumple localmente | .env.example / environment.php / .gitignore |
 | 32 | Documentación API | Cumple localmente | docs/api.md y 56 contratos |
 | 33 | Git progresivo y colaborativo | Pendiente de evidencia | Sin evidencia anterior; commits de esta revisión |
-| 34 | README | Completar datos académicos | README técnico completo; datos académicos editables |
+| 34 | README | Documentado localmente | README técnico, datos académicos y enlaces proporcionados |
 | 35 | Estructura del proyecto | Cumple localmente | public_html / private / database / docs / test |
 
-No se acredita Git previo/colaborativo ni planeación original. Portada y enlaces se dejan editables por solicitud del usuario. MySQL/Hostinger, SMTP y pasarelas reales requieren validación en destino.
+No se acredita Git previo/colaborativo ni planeación original. Portada completada con datos y enlaces proporcionados por el equipo; dominio previsto, con despliegue pendiente. MySQL/Hostinger, SMTP y pasarelas reales requieren validación en destino.

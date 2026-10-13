@@ -1,5 +1,21 @@
 # Documentación de NexTech 2.0
-Portada: institución, materia, docente, grupo, integrantes, fecha de entrega, repositorio y despliegue por completar manualmente.
+## Datos de portada
+
+institucion: Instituto Tecnológico Superior de Irapuato
+
+materia: Desarrollo de Apps Web
+
+docente: Francisco Hunahpu Sahagun González
+
+grupo: Ing. Informática
+
+integrantes: Soto Saavedra Erwin Emmanuel; Aguirre Sierra Juan Damián; Crisanto Vázquez Sofía; Rosales Alarcón Amairani; Gutiérrez Rocha Kevin Yahir; Rivera Alvarado Itzel Daniela
+
+fecha_entrega: 6 de noviembre de 2026
+
+repositorio: https://github.com/EESH02011/NEXTECH-
+
+despliegue: https://mamawevo.com/
 
 
 # 2. Resumen ejecutivo
@@ -12,7 +28,7 @@ La versión entregada contiene 300 modelos de productos distribuidos inicialment
 
 En esta revisión se corrigieron faltantes de la entrega previa: rutas REST con verbos apropiados, relaciones y restricciones de base de datos, normalización de especificaciones, módulos de administración, variables de entorno, movimientos, reportes, gráficas y documentación. Se aprobaron 23 grupos de pruebas automáticas y se comprobó la interfaz en escritorio, tableta y teléfono.
 
-El resultado es demostrable localmente. No se ha desplegado en la cuenta de Hostinger del usuario ni se han realizado cobros reales. La acreditación de historial previo de Git y aportes de integrantes permanece pendiente de evidencia auténtica. Los campos académicos se dejan editables por solicitud del usuario; esta reserva no se oculta tras una afirmación de cumplimiento total.
+El resultado es demostrable localmente. No se ha desplegado en la cuenta de Hostinger del usuario ni se han realizado cobros reales. La acreditación de historial previo de Git y aportes de integrantes permanece pendiente de evidencia auténtica. Los datos académicos fueron proporcionados por el equipo y se incluyen en la portada; el repositorio y el dominio previsto se incluyen y permanecen editables.
 
 Tabla 1. Control del documento
 
@@ -83,7 +99,7 @@ Tabla 4. Plan de regularización con entregables
 | Frontend · 06/10 → 06/10 | Asistencia técnica | Formularios, listas paginadas, reportes y gráficas; capturas. | Realizado |
 | Pruebas · 06/10 → 06/10 | Asistencia técnica | 23 grupos y revisión visual en 3 tamaños. JSON de resultados. | Realizado |
 | Entrega técnica · 06/10 → 06/10 | Asistencia técnica | Código, SQL, fuentes de documentación y PDF. | Preparada |
-| Cierre académico · por definir | Integrantes: completar | Portada, aportes, cronograma original y enlace Git auténtico. | A cargo del equipo |
+| Cierre académico · 06/11/2026 | Equipo NexTech | Portada y enlaces completados; aportes e historial original pendientes. | A cargo del equipo |
 | Despliegue · por definir | Responsable del servidor | Instalación y pruebas en MySQL/Hostinger y pasarelas de prueba. | Pendiente de acceso |
 
 Tabla 5. Seguimiento estimado frente a resultado
@@ -433,11 +449,11 @@ Límites de la verificación: no se ejecutó la batería sobre MySQL de Hostinge
 
 ## 14.1 Requisitos y descarga
 
-PHP 8.2+ con PDO MySQL/SQLite, cURL, OpenSSL, mbstring y fileinfo. MySQL 8.0.16+ o MariaDB 10.6+ en Hostinger. Node.js 22+ solo para pruebas. Descargar y descomprimir el ZIP entregado; el repositorio remoto se deja por completar porque no se ha publicado. Los archivos PHP, imágenes y PHPMailer ya se incluyen; no se requiere instalar Composer para esta versión.
+PHP 8.2+ con PDO MySQL/SQLite, cURL, OpenSSL, mbstring y fileinfo. MySQL 8.0.16+ o MariaDB 10.6+ en Hostinger. Node.js 22+ solo para pruebas. Descargar y descomprimir el ZIP entregado; el repositorio indicado por el equipo es https://github.com/EESH02011/NEXTECH-. Verificar la versión y el acceso antes de descargar. Los archivos PHP, imágenes y PHPMailer ya se incluyen; no se requiere instalar Composer para esta versión.
 
 ## 14.2 Variables y base de datos
 
-Copiar .env.example como .env al mismo nivel que private y public_html. Completar APP_ENV=production, APP_URL=https://tu-dominio, DB_HOST, DB_PORT, DB_NAME, DB_USER y DB_PASSWORD. Dejar el archivo fuera de la carpeta pública. SMTP_* y claves STRIPE_*/MP_* se agregan únicamente cuando se van a probar esas integraciones. No conservar secretos en Git ni en capturas.
+Copiar .env.example como .env al mismo nivel que private y public_html. Completar APP_ENV=production, APP_URL=https://mamawevo.com, DB_HOST, DB_PORT, DB_NAME, DB_USER y DB_PASSWORD. Dejar el archivo fuera de la carpeta pública. SMTP_* y claves STRIPE_*/MP_* se agregan únicamente cuando se van a probar esas integraciones. No conservar secretos en Git ni en capturas.
 
 Crear una base vacía. Subir public_html a la raíz pública y private a su lado. Abrir /install.php con la clave private/setup.key; elegir el administrador. El instalador crea tablas y catálogo. Si el proyecto procede de Git sin esa clave, ejecutar php scripts/setup-key.php. La alternativa SQL consiste en importar schema.sql y seed.sql una vez y después usar install.php para crear el administrador. No combinar repetidas cargas de semilla.
 
@@ -475,7 +491,7 @@ Tabla 21. Resultado frente al mínimo
 
 El requisito 33 exige historial de desarrollo progresivo y contribución identificable de integrantes. La carpeta no contenía Git; se creó un repositorio con cambios reales de esta revisión, atribuidos a NexTech automation. No se inventaron commits antiguos ni autores humanos. Para cerrar ese requisito se necesita evidencia auténtica del equipo. Tampoco se recibió la planeación original: este documento identifica el cronograma como regularización actual, y deja al equipo aportar el antecedente real.
 
-Los datos académicos y enlaces se dejan para completar manualmente por decisión del usuario. El sistema no ha sido publicado en Hostinger y las integraciones reales están pendientes de configurar y probar. El cumplimiento técnico local no equivale a disponibilidad comercial en el servidor.
+Los datos académicos y la fecha de entrega del 6 de noviembre de 2026 se incluyen según la información proporcionada por el equipo. El repositorio proporcionado es https://github.com/EESH02011/NEXTECH- y el sitio previsto es https://mamawevo.com/. El sistema no ha sido publicado en Hostinger y las integraciones reales están pendientes de configurar y probar. El cumplimiento técnico local no equivale a disponibilidad comercial en el servidor.
 
 ## Conclusiones
 
@@ -525,7 +541,7 @@ Tabla 22. Trazabilidad de los 35 requisitos
 | 31 | Variables .env | Cumple localmente | .env.example / environment.php / .gitignore |
 | 32 | Documentación API | Cumple localmente | docs/api.md y 56 contratos |
 | 33 | Git progresivo y colaborativo | Pendiente de evidencia | Sin evidencia anterior; commits de esta revisión |
-| 34 | README | Completar datos académicos | README técnico completo; datos académicos editables |
+| 34 | README | Documentado localmente | README técnico, datos académicos y enlaces proporcionados |
 | 35 | Estructura del proyecto | Cumple localmente | public_html / private / database / docs / test |
 
 ## 16.2 Requisitos específicos de punto de venta
@@ -849,7 +865,7 @@ Tabla 42. Campos de users
 
 ## 16.5 Evidencia Git y contribuciones
 
-Se adjunta el historial de cambios funcionales disponible; los cierres de documentación adicionales pueden consultarse en el respaldo Git incluido en el paquete. La primera entrada registra la versión existente al iniciar esta revisión. No es evidencia de desarrollo progresivo anterior del equipo. El repositorio no tiene URL remota configurada; la portada permite agregarla cuando exista. No se realizaron publicaciones externas.
+Se adjunta el historial de cambios funcionales disponible; los cierres de documentación adicionales pueden consultarse en el respaldo Git incluido en el paquete. La primera entrada registra la versión existente al iniciar esta revisión. No es evidencia de desarrollo progresivo anterior del equipo. El equipo proporcionó el repositorio https://github.com/EESH02011/NEXTECH-. Este enlace no acredita por sí solo los aportes históricos. La actualización documental no configura el remoto local ni publica cambios.
 
 8e93d4a | 2026-10-06T23:46:26-06:00 | NexTech automation | fix: normaliza especificaciones y verifica formularios y datos demo
 c3a02c0 | 2026-10-06T23:31:46-06:00 | NexTech automation | feat: incorpora REST, CRUD administrativos, reportes e integridad de inventario
@@ -858,9 +874,12 @@ Tabla 43. Aportaciones del equipo por completar
 
 | Integrante | Aporte real / evidencia | Commit o entregable |
 | --- | --- | --- |
-| ________________ | ________________________ | ________________ |
-| ________________ | ________________________ | ________________ |
-| ________________ | ________________________ | ________________ |
+| Soto Saavedra Erwin Emmanuel | Por documentar por el integrante | Pendiente de evidencia |
+| Aguirre Sierra Juan Damián | Por documentar por el integrante | Pendiente de evidencia |
+| Crisanto Vázquez Sofía | Por documentar por el integrante | Pendiente de evidencia |
+| Rosales Alarcón Amairani | Por documentar por el integrante | Pendiente de evidencia |
+| Gutiérrez Rocha Kevin Yahir | Por documentar por el integrante | Pendiente de evidencia |
+| Rivera Alvarado Itzel Daniela | Por documentar por el integrante | Pendiente de evidencia |
 
 ## 16.6 Manual breve y fuentes de evidencia
 
